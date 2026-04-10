@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { TypedHeroTitle } from "@/components/sections/typed-hero-title";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { siteContent } from "@/content/site";
 
 export function Hero() {
@@ -14,25 +16,27 @@ export function Hero() {
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/70">
               {siteContent.hero.eyebrow}
             </p>
-            <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-none tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
-              {siteContent.hero.title}
-            </h1>
+            <TypedHeroTitle />
             <p className="mt-6 max-w-2xl text-base leading-7 text-white/78 sm:text-lg sm:leading-8">
               {siteContent.hero.body}
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/products"
-                className="rounded-full bg-brand-red px-7 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-brand-blue-dark"
-              >
-                Explore Products
-              </Link>
-              <Link
-                href="/contact"
-                className="rounded-full border border-white/25 px-7 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-brand-blue-dark"
-              >
-                Request Delivery
-              </Link>
+              <MagneticButton>
+                <Link
+                  href="/products"
+                  className="inline-flex rounded-full bg-brand-red px-7 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-brand-blue-dark"
+                >
+                  Explore Products
+                </Link>
+              </MagneticButton>
+              <MagneticButton>
+                <Link
+                  href="/checkout"
+                  className="inline-flex rounded-full border border-white/25 px-7 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-brand-blue-dark"
+                >
+                  Open Cart & Checkout
+                </Link>
+              </MagneticButton>
             </div>
             <div className="mt-10 grid gap-4 sm:grid-cols-3">
               <div className="rounded-3xl border border-white/10 bg-white/5 px-4 py-4 backdrop-blur">
@@ -51,22 +55,17 @@ export function Hero() {
           </div>
           <div className="relative z-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 shadow-premium backdrop-blur">
             <div className="relative aspect-[4/5]">
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(255,255,255,0.14),_rgba(255,255,255,0.03))]" />
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(circle_at_bottom,_rgba(237,28,36,0.22),_transparent_52%)]" />
-              <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-                <div className="relative h-full w-full overflow-hidden rounded-[1.6rem] border border-white/10 bg-[linear-gradient(180deg,_#1b206c_0%,_#111538_100%)]">
-                  <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-brand-red/20 blur-3xl" />
-                  <div className="absolute -left-12 bottom-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Image
-                      src="/images/logo/oscargas-logo.jpg"
-                      alt="Oscargas logo"
-                      width={340}
-                      height={340}
-                      className="h-auto w-[62%] rounded-3xl bg-white/95 p-4 shadow-premium sm:w-[56%] sm:p-6"
-                      priority
-                    />
-                  </div>
+              <Image
+                src="/images/hero/oscargas-landing-burner.jpg"
+                alt="Oscargas gas burner hero image"
+                fill
+                className="object-contain bg-white p-4 sm:p-6"
+                priority
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(8,10,23,0.02),_rgba(8,10,23,0.28))]" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80 backdrop-blur">
+                  Premium LPG Delivery
                 </div>
               </div>
             </div>

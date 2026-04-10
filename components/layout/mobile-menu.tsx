@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { siteContent } from "@/content/site";
+import { HeaderCart } from "./header-cart";
+import { WhatsAppOrderButton } from "./whatsapp-order-button";
 
 const navItems = [
   { href: "/about", label: "About" },
@@ -33,13 +34,12 @@ export function MobileMenu() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href={`https://wa.me/${siteContent.brand.whatsappNumber}`}
-              onClick={() => setOpen(false)}
-              className="rounded-full bg-brand-red px-5 py-3 text-center text-sm font-semibold text-white"
-            >
-              Order on WhatsApp
-            </Link>
+            <div className="pt-2">
+              <WhatsAppOrderButton className="w-full justify-center" />
+            </div>
+            <div className="pt-1">
+              <HeaderCart />
+            </div>
           </div>
         </div>
       ) : null}
