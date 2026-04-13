@@ -5,7 +5,7 @@ export const siteContent = {
     tagline: "Premium LPG delivery with dependable local service.",
     phone: "+27 81 387 0497",
     whatsappNumber: "27813870497",
-    email: "info@oscargas.co.za",
+    email: "service@oscargas.co.za",
     address:
       "Unit 8, Andrew Norman Business Park, 16 Industria Road, Gordon's Bay, Cape Town, 7151, South Africa"
   },
