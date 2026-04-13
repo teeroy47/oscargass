@@ -16,20 +16,20 @@ const navItems = [
 ];
 
 export function Header() {
-  const logoSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/logo/oscargas-logo.jpg`;
+  const logoSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/logo/oscargas-logo-transparent.png`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0b0c1f]/88 backdrop-blur-xl">
       <Container>
         <div className="flex h-24 items-center justify-between gap-4">
           <Link href="/" className="flex min-w-0 items-center">
-            <div className="relative flex h-[72px] w-[88px] items-center justify-center overflow-hidden rounded-sm bg-white shadow-lg shadow-black/10 sm:h-[78px] sm:w-[96px]">
+            <div className="relative flex h-[88px] w-[124px] items-center justify-center overflow-hidden sm:h-[96px] sm:w-[138px]">
               <Image
                 src={logoSrc}
                 alt={`${siteContent.brand.name} logo`}
                 fill
-                className="object-contain p-1"
-                sizes="96px"
+                className="object-contain"
+                sizes="138px"
                 priority
               />
             </div>

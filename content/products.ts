@@ -3,6 +3,11 @@ export type Product = {
   name: string;
   badge?: string;
   price: number | null;
+  cylinderOption?: {
+    sizeKg: number;
+    noCylinderSurcharge: number;
+    acceptedBrands: string[];
+  };
   summary: string;
   description: string;
   useCase: string;
@@ -10,6 +15,8 @@ export type Product = {
   features: string[];
   featured?: boolean;
 };
+
+const acceptedCylinderBrands = ["Oryx", "Afrox", "Total", "EasiGas"];
 
 export const products: Product[] = [
   {
@@ -241,7 +248,12 @@ export const products: Product[] = [
     slug: "48kg-gas-and-cylinder-exchange",
     name: "48kg Gas and Cylinder exchange",
     badge: "48kg",
-    price: 1600,
+    price: 1500,
+    cylinderOption: {
+      sizeKg: 48,
+      noCylinderSurcharge: 1650,
+      acceptedBrands: acceptedCylinderBrands
+    },
     summary: "Large-scale 48kg cylinder exchange service.",
     description:
       "48kg gas cylinder for large-scale cooking, heating, and production. Exchange empty for full with delivery and pickup.",
@@ -249,6 +261,23 @@ export const products: Product[] = [
     image: "/images/products/48kg-gas-cylinder-exchange.png",
     features: ["48kg exchange", "Pickup and delivery", "Large-scale supply"],
     featured: true
+  },
+  {
+    slug: "5kg-gas-and-cylinder-exchange",
+    name: "5kg Gas and Cylinder exchange",
+    badge: "5kg",
+    price: 500,
+    cylinderOption: {
+      sizeKg: 5,
+      noCylinderSurcharge: 200,
+      acceptedBrands: acceptedCylinderBrands
+    },
+    summary: "5kg exchange cylinder for smaller portable and light domestic use.",
+    description:
+      "5kg gas cylinder ideal for compact cooking setups, camping, and light domestic use, offered as an exchange service.",
+    useCase: "Portable cooking and compact domestic supply",
+    image: "/images/products/9kg-gas-cylinder-exchange.png",
+    features: ["5kg exchange", "Portable use", "Compact cylinder supply"]
   },
   {
     slug: "igniter",
@@ -264,7 +293,12 @@ export const products: Product[] = [
     slug: "14kg-gas-and-cylinder-exchange",
     name: "14kg Gas and Cylinder exchange",
     badge: "14kg",
-    price: 480,
+    price: 700,
+    cylinderOption: {
+      sizeKg: 14,
+      noCylinderSurcharge: 490,
+      acceptedBrands: acceptedCylinderBrands
+    },
     summary: "14kg exchange cylinder for larger domestic and commercial needs.",
     description:
       "14kg gas cylinder ideal for larger domestic or commercial needs such as heating and cooking, offered as an exchange service.",
@@ -277,7 +311,12 @@ export const products: Product[] = [
     slug: "9kg-gas-and-cylinder-exchange",
     name: "9kg Gas and Cylinder Exchange",
     badge: "9kg",
-    price: 310,
+    price: 600,
+    cylinderOption: {
+      sizeKg: 9,
+      noCylinderSurcharge: 320,
+      acceptedBrands: acceptedCylinderBrands
+    },
     summary: "9kg exchange cylinder for light household use.",
     description:
       "A 9kg gas cylinder perfect for light household use such as heating and barbecuing, offered as an exchange service.",
@@ -290,7 +329,12 @@ export const products: Product[] = [
     slug: "19kg-gas-and-cylinder-exchange",
     name: "19kg Gas and Cylinder exchange",
     badge: "19kg",
-    price: 650,
+    price: 800,
+    cylinderOption: {
+      sizeKg: 19,
+      noCylinderSurcharge: 670,
+      acceptedBrands: acceptedCylinderBrands
+    },
     summary: "19kg exchange cylinder for heavier domestic and commercial demand.",
     description:
       "19kg gas cylinder ideal for larger domestic or commercial needs such as heating, cooking, or barbecues, offered as an exchange service.",

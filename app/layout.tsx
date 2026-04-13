@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   },
   description: "Premium LPG gas delivery and supply in Helderberg.",
   icons: {
-    icon: `${basePath}/icon.jpg`,
-    shortcut: `${basePath}/icon.jpg`,
-    apple: `${basePath}/icon.jpg`
+    icon: `${basePath}/images/logo/oscargas-logo-transparent.png`,
+    shortcut: `${basePath}/images/logo/oscargas-logo-transparent.png`,
+    apple: `${basePath}/images/logo/oscargas-logo-transparent.png`
   },
   openGraph: {
     title: "Oscargas Helderberg",

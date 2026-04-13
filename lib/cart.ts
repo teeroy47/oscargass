@@ -2,6 +2,16 @@ import { products } from "@/content/products";
 
 export type CatalogProduct = (typeof products)[number];
 
+export type CartItemInput = {
+  id: string;
+  name: string;
+  image: string;
+  price: number | null;
+  priceLabel?: string;
+  quantity: number;
+  badge?: string;
+};
+
 export type CartItem = {
   id: string;
   name: string;

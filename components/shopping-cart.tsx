@@ -7,12 +7,13 @@ import { Separator } from "@/components/ui/separator";
 import { Minus, Plus, ShoppingCart as ShoppingCartIcon, Trash2 } from "lucide-react";
 import type { CartItem } from "@/lib/cart";
 import { formatCurrency } from "@/lib/cart";
+import { resolveStaticAssetPath } from "@/lib/assets";
 
 interface ShoppingCartProps {
   items: CartItem[];
   onQuantityChange: (id: string, newQuantity: number) => void;
   onRemoveItem: (id: string) => void;
-  checkoutHref: string;
+  checkoutHref?: string;
 }
 
 export function ShoppingCart({ items, onQuantityChange, onRemoveItem, checkoutHref }: ShoppingCartProps) {
@@ -32,14 +33,18 @@ export function ShoppingCart({ items, onQuantityChange, onRemoveItem, checkoutHr
       <CardContent>
         {items.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-brand-line bg-brand-surface px-6 py-12 text-center text-brand-muted">
-            Your cart is empty. Add an item from the products page to begin checkout.
+            Your cart is empty. Add an item from the{" "}
+            <Link href="/products" className="font-medium text-brand-blue underline underline-offset-4 transition hover:text-brand-blue-dark">
+              products page
+            </Link>{" "}
+            to begin checkout.
           </div>
         ) : (
           <div className="space-y-4">
             {items.map((item) => (
               <div key={item.id} className="flex flex-col gap-4 rounded-3xl border border-brand-line p-4 md:flex-row md:items-center">
                 <div className="relative h-24 w-full overflow-hidden rounded-2xl bg-brand-surface md:w-24">
-                  <Image src={item.image} alt={item.name} fill className="object-cover" />
+                  <Image src={resolveStaticAssetPath(item.image)} alt={item.name} fill className="object-cover" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-brand-ink">{item.name}</h3>
@@ -102,16 +107,18 @@ export function ShoppingCart({ items, onQuantityChange, onRemoveItem, checkoutHr
           </div>
         </div>
       </CardContent>
-      <CardFooter className="pt-6">
-        <Link
-          href={checkoutHref}
-          className={`inline-flex w-full items-center justify-center rounded-full bg-brand-blue px-5 py-4 text-sm font-semibold text-white transition hover:bg-brand-red ${
-            items.length === 0 ? "pointer-events-none opacity-50" : ""
-          }`}
-        >
-          Proceed to Checkout
-        </Link>
-      </CardFooter>
+      {checkoutHref ? (
+        <CardFooter className="pt-6">
+          <Link
+            href={checkoutHref}
+            className={`inline-flex w-full items-center justify-center rounded-full bg-brand-blue px-5 py-4 text-sm font-semibold text-white transition hover:bg-brand-red ${
+              items.length === 0 ? "pointer-events-none opacity-50" : ""
+            }`}
+          >
+            Proceed to Checkout
+          </Link>
+        </CardFooter>
+      ) : null}
     </Card>
   );
 }

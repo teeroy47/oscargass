@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AddToCartModal } from "@/components/sections/add-to-cart-modal";
 import { ProductRevealCard } from "@/components/product-reveal-card";
 import { useCart } from "@/components/providers/cart-provider";
 import type { Product } from "@/content/products";
-import type { AddItemAction } from "@/lib/cart";
+import type { AddItemAction, CartItemInput } from "@/lib/cart";
 import { formatCurrency } from "@/lib/cart";
 
 export function ProductCatalogGrid({ products }: { products: Product[] }) {
   const { addItem, undoAdd } = useCart();
   const [toastAction, setToastAction] = useState<AddItemAction | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -20,8 +22,7 @@ export function ProductCatalogGrid({ products }: { products: Product[] }) {
     };
   }, []);
 
-  const handleAdd = (product: Product) => {
-    const action = addItem(product);
+  const showToastForAction = (action: AddItemAction) => {
     setToastAction(action);
 
     if (timeoutRef.current) {
@@ -32,6 +33,52 @@ export function ProductCatalogGrid({ products }: { products: Product[] }) {
       setToastAction(null);
       timeoutRef.current = null;
     }, 2000);
+  };
+
+  const handleAdd = (product: Product) => {
+    setSelectedProduct(product);
+  };
+
+  const handleConfirmAdd = ({
+    product,
+    quantity,
+    cylinderChoice
+  }: {
+    product: Product;
+    quantity: number;
+    cylinderChoice?: "has-cylinder" | "needs-cylinder";
+  }) => {
+    const configuredPrice =
+      product.price === null
+        ? null
+        : product.cylinderOption && cylinderChoice === "needs-cylinder"
+          ? product.price + product.cylinderOption.noCylinderSurcharge
+          : product.price;
+
+    const configuredBadge = product.cylinderOption
+      ? `${product.badge ?? `${product.cylinderOption.sizeKg}kg`} · ${
+          cylinderChoice === "needs-cylinder" ? "New cylinder included" : "Exchange cylinder"
+        }`
+      : product.badge;
+
+    const itemId =
+      product.cylinderOption && cylinderChoice
+        ? `${product.slug}::${cylinderChoice}`
+        : product.slug;
+
+    const cartItem: CartItemInput = {
+      id: itemId,
+      name: product.name,
+      image: product.image,
+      price: configuredPrice,
+      priceLabel: configuredPrice === null ? "Price on request" : undefined,
+      quantity,
+      badge: configuredBadge
+    };
+
+    const action = addItem(cartItem);
+    showToastForAction(action);
+    setSelectedProduct(null);
   };
 
   const handleUndo = () => {
@@ -68,6 +115,13 @@ export function ProductCatalogGrid({ products }: { products: Product[] }) {
           />
         ))}
       </div>
+
+      <AddToCartModal
+        product={selectedProduct}
+        open={selectedProduct !== null}
+        onClose={() => setSelectedProduct(null)}
+        onConfirm={handleConfirmAdd}
+      />
 
       {toastAction ? (
         <div className="pointer-events-none fixed bottom-6 left-1/2 z-[80] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2">

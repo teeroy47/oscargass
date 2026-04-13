@@ -17,6 +17,6 @@ export const siteContent = {
   },
   map: {
     embedUrl:
-      "https://www.google.com/maps?q=RVXP%2B72%20Gordon%27s%20Bay%2C%20Cape%20Town%2C%20South%20Africa&output=embed"
+      "https://www.google.com/maps?q=Oscar%20Gas%20Helderberg%2C%20Unit%208%2C%20Andrew%20Norman%20Business%20Park%2C%2016%20Industria%20Road%2C%20Gordon%27s%20Bay%2C%20Cape%20Town%2C%207151%2C%20South%20Africa&output=embed"
   }
 } as const;

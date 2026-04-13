@@ -6,9 +6,9 @@ import { products } from "@/content/products";
 
 export function FeaturedProducts() {
   const featuredCylinderSlugs = [
+    "5kg-gas-and-cylinder-exchange",
     "9kg-gas-and-cylinder-exchange",
-    "14kg-gas-and-cylinder-exchange",
-    "19kg-gas-and-cylinder-exchange"
+    "14kg-gas-and-cylinder-exchange"
   ];
 
   const featuredCylinders = featuredCylinderSlugs

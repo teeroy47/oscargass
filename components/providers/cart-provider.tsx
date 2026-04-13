@@ -2,14 +2,14 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import type { Product } from "@/content/products";
-import type { AddItemAction, CartItem } from "@/lib/cart";
+import type { AddItemAction, CartItem, CartItemInput } from "@/lib/cart";
+import { stripStaticAssetBasePath } from "@/lib/assets";
 
 type CartContextValue = {
   items: CartItem[];
   itemCount: number;
   subtotal: number;
-  addItem: (product: Product) => AddItemAction;
+  addItem: (item: CartItemInput) => AddItemAction;
   undoAdd: (action: AddItemAction) => void;
   updateQuantity: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
@@ -22,11 +22,17 @@ const STORAGE_KEY = "oscargas-cart";
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
 
+  const normalizeCartItems = (cartItems: CartItem[]) =>
+    cartItems.map((item) => ({
+      ...item,
+      image: stripStaticAssetBasePath(item.image)
+    }));
+
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        setItems(JSON.parse(stored) as CartItem[]);
+        setItems(normalizeCartItems(JSON.parse(stored) as CartItem[]));
       } catch {
         window.localStorage.removeItem(STORAGE_KEY);
       }
@@ -38,34 +44,34 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items]);
 
   const value = useMemo(() => {
-    const addItem = (product: Product) => {
-      const existing = items.find((item) => item.id === product.slug);
+    const addItem = (itemToAdd: CartItemInput) => {
+      const existing = items.find((item) => item.id === itemToAdd.id);
       const previousQuantity = existing?.quantity ?? 0;
+      const normalizedItem = {
+        ...itemToAdd,
+        image: stripStaticAssetBasePath(itemToAdd.image)
+      };
 
       setItems((current) => {
-        const currentItem = current.find((item) => item.id === product.slug);
+        const currentItem = current.find((item) => item.id === normalizedItem.id);
         if (currentItem) {
           return current.map((item) =>
-            item.id === product.slug ? { ...item, quantity: item.quantity + 1 } : item
+            item.id === normalizedItem.id
+              ? { ...item, quantity: item.quantity + normalizedItem.quantity }
+              : item
           );
         }
 
         return [
           ...current,
           {
-            id: product.slug,
-            name: product.name,
-            image: product.image,
-            price: product.price,
-            priceLabel: product.price === null ? "Price on request" : undefined,
-            quantity: 1,
-            badge: product.badge
+            ...normalizedItem
           }
         ];
       });
 
       return {
-        id: product.slug,
+        id: normalizedItem.id,
         previousQuantity
       };
     };
