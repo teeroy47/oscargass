@@ -8,6 +8,7 @@ import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
   title: {
@@ -16,9 +17,9 @@ export const metadata: Metadata = {
   },
   description: "Premium LPG gas delivery and supply in Helderberg.",
   icons: {
-    icon: "/icon.jpg",
-    shortcut: "/icon.jpg",
-    apple: "/icon.jpg"
+    icon: `${basePath}/icon.jpg`,
+    shortcut: `${basePath}/icon.jpg`,
+    apple: `${basePath}/icon.jpg`
   },
   openGraph: {
     title: "Oscargas Helderberg",

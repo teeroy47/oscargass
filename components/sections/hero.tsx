@@ -6,6 +6,8 @@ import { MagneticButton } from "@/components/ui/magnetic-button";
 import { siteContent } from "@/content/site";
 
 export function Hero() {
+  const heroImageSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/hero/oscargas-cylinders-landing.png`;
+
   return (
     <section className="relative overflow-hidden bg-brand-blue-dark text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.14),_transparent_32%)]" />
@@ -60,7 +62,7 @@ export function Hero() {
             <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-[linear-gradient(270deg,rgba(237,28,36,0.16),rgba(237,28,36,0))]" />
             <div className="relative aspect-[10/11] overflow-hidden rounded-[1.6rem] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.72))]">
               <Image
-                src="/images/hero/oscargas-cylinders-landing.png"
+                src={heroImageSrc}
                 alt="Oscargas branded gas cylinders"
                 fill
                 className="object-contain p-4 sm:p-5"

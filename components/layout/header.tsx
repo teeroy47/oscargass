@@ -16,6 +16,8 @@ const navItems = [
 ];
 
 export function Header() {
+  const logoSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/images/logo/oscargas-logo.jpg`;
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0b0c1f]/88 backdrop-blur-xl">
       <Container>
@@ -23,7 +25,7 @@ export function Header() {
           <Link href="/" className="flex min-w-0 items-center">
             <div className="relative flex h-[72px] w-[88px] items-center justify-center overflow-hidden rounded-sm bg-white shadow-lg shadow-black/10 sm:h-[78px] sm:w-[96px]">
               <Image
-                src="/images/logo/oscargas-logo.jpg"
+                src={logoSrc}
                 alt={`${siteContent.brand.name} logo`}
                 fill
                 className="object-contain p-1"
