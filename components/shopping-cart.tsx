@@ -32,7 +32,7 @@ export function ShoppingCart({ items, onQuantityChange, onRemoveItem, checkoutHr
       <CardContent>
         {items.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-brand-line bg-brand-surface px-6 py-12 text-center text-brand-muted">
-            Your cart is empty. Add a cylinder from the products page to begin checkout.
+            Your cart is empty. Add an item from the products page to begin checkout.
           </div>
         ) : (
           <div className="space-y-4">
