@@ -40,6 +40,10 @@ export function ProductRevealCard({
   const [isFavorite, setIsFavorite] = useState(false)
   const shouldReduceMotion = useReducedMotion()
   const shouldAnimate = enableAnimations && !shouldReduceMotion
+  const resolvedImage =
+    image.startsWith("/") && !image.startsWith("//")
+      ? `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${image}`
+      : image
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite)
@@ -151,7 +155,7 @@ export function ProductRevealCard({
       {/* Image Container */}
       <div className="relative overflow-hidden bg-[radial-gradient(circle_at_top,#f7fbff_0%,#eef4fb_55%,#e7eef8_100%)]">
         <motion.img
-          src={image}
+          src={resolvedImage}
           alt={name}
           className="h-64 w-full object-contain p-5"
           variants={imageVariants}
