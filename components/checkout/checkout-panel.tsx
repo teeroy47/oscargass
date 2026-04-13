@@ -16,7 +16,9 @@ export function CheckoutPanel() {
   const checkoutHref = useMemo(() => {
     const lines = [
       "Hello Oscargas, I would like to place this order:",
-      ...items.map((item) => `- ${item.name} x${item.quantity} (${formatCurrency(item.price * item.quantity)})`),
+      ...items.map((item) =>
+        `- ${item.name} x${item.quantity} (${item.price === null ? item.priceLabel ?? "Price on request" : formatCurrency(item.price * item.quantity)})`
+      ),
       `Subtotal: ${formatCurrency(subtotal)}`,
       "",
       `Name: ${name || "Not provided"}`,
@@ -69,13 +71,13 @@ export function CheckoutPanel() {
             <span className="font-semibold text-brand-ink">{formatCurrency(subtotal)}</span>
           </div>
           <p className="mt-3 text-xs leading-6 text-brand-muted">
-            Online payment has not been connected yet. This checkout sends a structured order request directly to WhatsApp.
+            Online payment has not been connected yet. Items marked price on request will still be included in the WhatsApp order message for manual confirmation.
           </p>
         </div>
         <div className="mt-6 flex flex-col gap-3">
           <Link
             href={checkoutHref}
-            className={`inline-flex items-center justify-center rounded-full bg-[#25D366] px-5 py-4 text-sm font-semibold text-white transition hover:bg-[#1fb558] ${
+            className={`inline-flex items-center justify-center rounded-full bg-brand-blue px-5 py-4 text-sm font-semibold text-white transition hover:bg-brand-blue-dark ${
               items.length === 0 ? "pointer-events-none opacity-50" : ""
             }`}
           >

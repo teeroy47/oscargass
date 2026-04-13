@@ -6,9 +6,15 @@ export type CartItem = {
   id: string;
   name: string;
   image: string;
-  price: number;
+  price: number | null;
+  priceLabel?: string;
   quantity: number;
-  sizeKg: number;
+  badge?: string;
+};
+
+export type AddItemAction = {
+  id: string;
+  previousQuantity: number;
 };
 
 export function formatCurrency(amount: number) {

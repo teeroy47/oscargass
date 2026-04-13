@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/components/providers/cart-provider";
 
 export function HeaderCart() {
@@ -10,10 +10,11 @@ export function HeaderCart() {
   return (
     <Link
       href="/checkout"
-      className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-brand-line bg-white text-brand-blue transition hover:border-brand-blue hover:text-brand-red"
+      className="relative inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-blue px-5 text-sm font-semibold text-white shadow-lg shadow-brand-blue/20 transition hover:bg-brand-blue-dark"
       aria-label={`Open cart with ${itemCount} items`}
     >
-      <ShoppingBag size={18} />
+      <ShoppingCart size={18} strokeWidth={2.2} />
+      <span>Cart</span>
       <span className="absolute -right-1 -top-1 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-brand-red px-1 text-[11px] font-bold text-white">
         {itemCount}
       </span>

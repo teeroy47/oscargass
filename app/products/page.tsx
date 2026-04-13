@@ -9,8 +9,8 @@ export default function ProductsPage() {
       <Container>
         <SectionHeading
           eyebrow="Products"
-          title="Browse the current Oscargas cylinder range."
-          body="Every cylinder card now supports reveal interactions, add-to-cart behavior, and a direct path into checkout."
+          title="Browse the full Oscargas product catalogue."
+          body="This catalogue now includes cylinders, burners, regulators, hoses, heaters, lighters, valves, and related gas accessories with direct add-to-cart actions."
         />
         <ProductCatalogGrid products={products} />
       </Container>

@@ -20,6 +20,9 @@ export default function DeliveryAreasPage() {
             </div>
           ))}
         </div>
+        <p className="mt-6 text-sm leading-7 text-brand-muted">
+          We also deliver outside of these areas on request.
+        </p>
       </Container>
     </main>
   );

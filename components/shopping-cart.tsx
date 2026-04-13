@@ -16,7 +16,7 @@ interface ShoppingCartProps {
 }
 
 export function ShoppingCart({ items, onQuantityChange, onRemoveItem, checkoutHref }: ShoppingCartProps) {
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => sum + (item.price ?? 0) * item.quantity, 0);
   const delivery = subtotal > 0 ? 0 : 0;
   const total = subtotal + delivery;
 
@@ -43,8 +43,10 @@ export function ShoppingCart({ items, onQuantityChange, onRemoveItem, checkoutHr
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-brand-ink">{item.name}</h3>
-                  <p className="text-sm text-brand-muted">{item.sizeKg}kg cylinder</p>
-                  <p className="mt-1 text-sm font-medium text-brand-blue">{formatCurrency(item.price)} each</p>
+                  <p className="text-sm text-brand-muted">{item.badge ?? "Product item"}</p>
+                  <p className="mt-1 text-sm font-medium text-brand-blue">
+                    {item.price === null ? item.priceLabel ?? "Price on request" : `${formatCurrency(item.price)} each`}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -67,7 +69,9 @@ export function ShoppingCart({ items, onQuantityChange, onRemoveItem, checkoutHr
                   </button>
                 </div>
                 <div className="flex items-center justify-between gap-4 md:flex-col md:items-end">
-                  <p className="text-lg font-semibold text-brand-ink">{formatCurrency(item.price * item.quantity)}</p>
+                  <p className="text-lg font-semibold text-brand-ink">
+                    {item.price === null ? item.priceLabel ?? "Price on request" : formatCurrency(item.price * item.quantity)}
+                  </p>
                   <button
                     type="button"
                     onClick={() => onRemoveItem(item.id)}

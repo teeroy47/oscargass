@@ -34,7 +34,7 @@ export function Hero() {
                   href="/checkout"
                   className="inline-flex rounded-full border border-white/25 px-7 py-4 text-center text-sm font-semibold text-white transition hover:bg-white hover:text-brand-blue-dark"
                 >
-                  Open Cart & Checkout
+                  Place Order
                 </Link>
               </MagneticButton>
             </div>
@@ -53,16 +53,20 @@ export function Hero() {
               </div>
             </div>
           </div>
-          <div className="relative z-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 shadow-premium backdrop-blur">
-            <div className="relative aspect-[4/5]">
+          <div className="relative z-10 mx-auto w-full max-w-[520px] overflow-hidden rounded-[2rem] border border-white/15 bg-white/8 p-3 shadow-premium backdrop-blur-xl">
+            <div className="pointer-events-none absolute inset-0 rounded-[2rem] ring-1 ring-white/12" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0))]" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-[linear-gradient(90deg,rgba(255,255,255,0.16),rgba(255,255,255,0))]" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-[linear-gradient(270deg,rgba(237,28,36,0.16),rgba(237,28,36,0))]" />
+            <div className="relative aspect-[10/11] overflow-hidden rounded-[1.6rem] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.72))]">
               <Image
-                src="/images/hero/oscargas-landing-burner.jpg"
-                alt="Oscargas gas burner hero image"
+                src="/images/hero/oscargas-cylinders-landing.png"
+                alt="Oscargas branded gas cylinders"
                 fill
-                className="object-contain bg-white p-4 sm:p-6"
+                className="object-contain p-4 sm:p-5"
                 priority
               />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(8,10,23,0.02),_rgba(8,10,23,0.28))]" />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(8,10,23,0.01),_rgba(8,10,23,0.12))]" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-white/80 backdrop-blur">
                   Premium LPG Delivery

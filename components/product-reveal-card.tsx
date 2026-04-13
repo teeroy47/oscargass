@@ -2,18 +2,15 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { buttonVariants } from "@/components/ui/button"
-import { ShoppingCart, Star, Heart } from "lucide-react"
+import { ShoppingCart, Heart } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 
 interface ProductRevealCardProps {
   name?: string
   price?: string
-  originalPrice?: string
   image?: string
   description?: string
-  rating?: number
-  reviewCount?: number
   badge?: string
   features?: string[]
   actionLabel?: string
@@ -28,11 +25,8 @@ interface ProductRevealCardProps {
 export function ProductRevealCard({
   name = "Premium Wireless Headphones",
   price = "$199",
-  originalPrice = "$299",
   image = "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800&h=600&fit=crop", // Premium headphones
   description = "Experience studio-quality sound with advanced noise cancellation and 30-hour battery life. Perfect for music lovers and professionals.",
-  rating = 4.8,
-  reviewCount = 124,
   badge,
   features = ["Fast delivery", "Safety checked", "Helderberg coverage", "Easy ordering"],
   actionLabel = "Add to Cart",
@@ -155,15 +149,15 @@ export function ProductRevealCard({
       )}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden bg-[radial-gradient(circle_at_top,#f7fbff_0%,#eef4fb_55%,#e7eef8_100%)]">
         <motion.img
           src={image}
           alt={name}
-          className="h-56 w-full object-cover"
+          className="h-64 w-full object-contain p-5"
           variants={imageVariants}
           transition={{ type: "spring" as const, stiffness: 300, damping: 30 }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(16,19,26,0.08))]" />
         
         {/* Favorite Button */}
         <motion.button
@@ -180,18 +174,7 @@ export function ProductRevealCard({
           <Heart className={cn("w-4 h-4", isFavorite && "fill-current")} />
         </motion.button>
 
-        {/* Discount Badge */}
-        {originalPrice && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, x: 20 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold"
-          >
-            {Math.round(((parseFloat(originalPrice.replace('$', '')) - parseFloat(price.replace('$', ''))) / parseFloat(originalPrice.replace('$', ''))) * 100)}% OFF
-          </motion.div>
-        )}
-        {badge && !originalPrice ? (
+        {badge ? (
           <div className="absolute left-4 top-4 rounded-full bg-brand-blue px-3 py-1 text-xs font-bold text-white">
             {badge}
           </div>
@@ -200,26 +183,6 @@ export function ProductRevealCard({
 
       {/* Content */}
       <div className="p-6 space-y-3">
-        {/* Rating */}
-        <div className="flex items-center gap-2">
-          <div className="flex">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={cn(
-                  "w-4 h-4",
-                  i < Math.floor(rating) 
-                    ? "text-yellow-400 fill-current" 
-                    : "text-muted-foreground"
-                )}
-              />
-            ))}
-          </div>
-          <span className="text-sm text-muted-foreground">
-            {rating} ({reviewCount} reviews)
-          </span>
-        </div>
-
         {/* Product Info */}
         <div className="space-y-1">
           <motion.h3 
@@ -233,13 +196,16 @@ export function ProductRevealCard({
           
           <div className="flex items-center gap-2">
             <span className="text-2xl font-bold text-brand-blue">{price}</span>
-            {originalPrice && (
-              <span className="text-lg text-muted-foreground line-through">
-                {originalPrice}
-              </span>
-            )}
           </div>
         </div>
+        <button
+          type="button"
+          onClick={onAdd}
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-blue px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-blue-dark"
+        >
+          <ShoppingCart className="h-4 w-4" />
+          {actionLabel}
+        </button>
       </div>
 
       {/* Reveal Overlay */}
@@ -279,7 +245,7 @@ export function ProductRevealCard({
                 buttonVariants({ variant: "default" }), 
                 "w-full h-12 font-medium",
                 "bg-gradient-to-r from-brand-blue to-brand-blue/90 text-white",
-                "hover:from-brand-blue/90 hover:to-brand-red",
+                "hover:from-brand-blue/90 hover:to-brand-blue-dark",
                 "shadow-lg shadow-brand-blue/25"
               )}
             >

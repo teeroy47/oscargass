@@ -3,13 +3,14 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { Product } from "@/content/products";
-import type { CartItem } from "@/lib/cart";
+import type { AddItemAction, CartItem } from "@/lib/cart";
 
 type CartContextValue = {
   items: CartItem[];
   itemCount: number;
   subtotal: number;
-  addItem: (product: Product) => void;
+  addItem: (product: Product) => AddItemAction;
+  undoAdd: (action: AddItemAction) => void;
   updateQuantity: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
@@ -38,9 +39,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(() => {
     const addItem = (product: Product) => {
+      const existing = items.find((item) => item.id === product.slug);
+      const previousQuantity = existing?.quantity ?? 0;
+
       setItems((current) => {
-        const existing = current.find((item) => item.id === product.slug);
-        if (existing) {
+        const currentItem = current.find((item) => item.id === product.slug);
+        if (currentItem) {
           return current.map((item) =>
             item.id === product.slug ? { ...item, quantity: item.quantity + 1 } : item
           );
@@ -53,11 +57,34 @@ export function CartProvider({ children }: { children: ReactNode }) {
             name: product.name,
             image: product.image,
             price: product.price,
+            priceLabel: product.price === null ? "Price on request" : undefined,
             quantity: 1,
-            sizeKg: product.sizeKg
+            badge: product.badge
           }
         ];
       });
+
+      return {
+        id: product.slug,
+        previousQuantity
+      };
+    };
+
+    const undoAdd = (action: AddItemAction) => {
+      setItems((current) =>
+        current
+          .map((item) => {
+            if (item.id !== action.id) {
+              return item;
+            }
+
+            return {
+              ...item,
+              quantity: action.previousQuantity
+            };
+          })
+          .filter((item) => item.quantity > 0)
+      );
     };
 
     const updateQuantity = (id: string, quantity: number) => {
@@ -74,13 +101,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const clearCart = () => setItems([]);
     const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
-    const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const subtotal = items.reduce((sum, item) => sum + (item.price ?? 0) * item.quantity, 0);
 
     return {
       items,
       itemCount,
       subtotal,
       addItem,
+      undoAdd,
       updateQuantity,
       removeItem,
       clearCart

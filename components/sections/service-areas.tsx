@@ -24,6 +24,9 @@ export function ServiceAreas() {
             </div>
           ))}
         </div>
+        <p className="mt-6 text-sm leading-7 text-brand-muted">
+          We also deliver outside of these areas on request.
+        </p>
         <Link href="/delivery-areas" className="mt-8 inline-flex text-sm font-semibold text-brand-blue">
           View full delivery coverage
         </Link>

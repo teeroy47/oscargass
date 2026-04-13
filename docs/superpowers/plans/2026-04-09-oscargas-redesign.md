@@ -346,8 +346,8 @@ export const siteContent = {
     name: "Oscargas Helderberg",
     shortName: "Oscargas",
     tagline: "Premium LPG delivery with dependable local service.",
-    phone: "+27 83 234 7160",
-    whatsappNumber: "27832347160",
+    phone: "+27 81 387 0497",
+    whatsappNumber: "27813870497",
     email: "info@oscargas.co.za",
     address: "Helderberg, Western Cape, South Africa"
   },
